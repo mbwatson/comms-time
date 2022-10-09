@@ -1,0 +1,19 @@
+{
+  "name": "comms-time",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd packages/api && npm start\" \"cd packages/client && npm start\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "packages/api",
+    "packages/client"
+  ],
+  "devDependencies": {
+    "concurrently": "^7.4.0"
+  }
+}
