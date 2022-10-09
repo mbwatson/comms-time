@@ -5,7 +5,7 @@ import {
 } from '@mui/icons-material'
 import { useTheme } from '@mui/material'
 import { useTimer } from '../../context'
-import { CategoryCell, DateTimeCell, ProjectCell } from './renderers'
+import { CategoryCell, DateTimeCell, DurationCell, ProjectCell } from './renderers'
 
 export const TimeTable = () => {
   const theme = useTheme()
@@ -57,6 +57,14 @@ export const TimeTable = () => {
       width: 200,
       renderCell: d => <DateTimeCell datetime={ d.row.endTime } />,
       editable: true,
+    },
+    {
+      field: 'duration',
+      headerName: 'Duration',
+      type: 'string',
+      width: 100,
+      renderCell: d => <DurationCell { ...d } />,
+      editable: false,
     },
     {
       field: '',
