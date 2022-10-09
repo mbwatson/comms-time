@@ -3,7 +3,7 @@ import { Box, Collapse, Stack, Typography } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 import {
   Settings as ConfigIcon,
-  Alarm as TimerIcon,
+  AccessTime as TimerIcon,
 } from '@mui/icons-material'
 import { useTimer } from '../context'
 import { EntryForm } from '../components/entry-form'

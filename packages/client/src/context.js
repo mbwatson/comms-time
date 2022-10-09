@@ -3,30 +3,10 @@ import PropTypes from 'prop-types'
 import { createContext, useContext } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import axios from 'axios'
-import { useLocalStorage } from './util'
-
 const TimerContext = createContext({ })
+import { generateRecord, useLocalStorage } from './util'
 
 export const useTimer = () => useContext(TimerContext)
-
-const dummyTimeRecords = [
-  {
-    id: uuidv4(),
-    project: 'heal',
-    category: 'web-dev',
-    title: 'work on feature x',
-    startTime: new Date(1664264983869),
-    endTime: new Date(1665266983869),
-  },
-  {
-    id: uuidv4(),
-    project: 'nb',
-    category: 'web-dev',
-    title: 'work on bugfix y',
-    startTime: new Date(1664264083869),
-    endTime: new Date(1665296983869),
-  },
-]
 
 export const TimerProvider = ({ children }) => {
   const [projects, setProjects] = useState([])
@@ -62,7 +42,7 @@ export const TimerProvider = ({ children }) => {
       }
     }
     fetchData()
-    setRecords([...dummyTimeRecords])
+    setRecords([])
   }, [])
 
   const startTimer = () => {
@@ -89,6 +69,14 @@ export const TimerProvider = ({ children }) => {
       setRecords([...records.slice(0, recordIndex), ...records.slice(recordIndex + 1)])
     }
     setRecords([...records.filter(r => r.id !== id)])
+  }
+
+  const addFakeRecord = () => {
+    if (!categories.length || !projects.length) {
+      return
+    }
+    const fakeRecord = generateRecord({ categories, projects })
+    setRecords([fakeRecord, ...records])
   }
 
   const duplicateAndStartNewRecord = id => {
@@ -125,7 +113,7 @@ export const TimerProvider = ({ children }) => {
   return (
     <TimerContext.Provider value={{
       categories, projects,
-      records, deleteRecord, record, setRecord, handleChangeRecord, duplicateAndStartNewRecord,
+      records, deleteRecord, record, setRecord, handleChangeRecord, duplicateAndStartNewRecord, addFakeRecord,
       timing, startTimer, stopTimer, runtime,
       config, setConfig,
     }}>
