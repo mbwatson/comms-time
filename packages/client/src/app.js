@@ -7,8 +7,8 @@ export const App = () => {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={ <LogView /> } />
-        <Route path="/config" element={ <ConfigView /> } />
+        <Route exact path="/" element={ <LogView /> } />
+        <Route exact path="/config" element={ <ConfigView /> } />
       </Routes>
     </Layout>
   )

@@ -1,42 +1,47 @@
 import PropTypes from 'prop-types'
-import { Badge, Box, Stack } from '@mui/material'
+import { Box, Collapse, Stack, Typography } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 import {
   Settings as ConfigIcon,
-  Timer as LogIcon,
+  Alarm as TimerIcon,
 } from '@mui/icons-material'
 import { useTimer } from '../context'
 import { EntryForm } from '../components/entry-form'
 
+const msToHHMMSS = function(milliseconds) {
+  const seconds = parseInt(milliseconds / 1000, 10)
+  let hh = Math.floor(seconds / 3600)
+  let mm = Math.floor((seconds - (hh * 3600)) / 60)
+  let ss = seconds - (hh * 3600) - (mm * 60)
+  if (hh < 10) { hh = '0' + hh }
+  if (mm < 10) { mm = '0' + mm }
+  if (ss < 10) { ss = '0' + ss }
+  return hh + ':' + mm + ':' + ss
+}
+
 const Menu = () => {
-  const { timing } = useTimer()
+  const { timing, runtime } = useTimer()
+
   return (
     <Stack
       direction="row"
       component="nav"
       alignItems="center"
     >
-      <NavLink exact to="/">
-        <Badge
-          color="secondary"
-          variant="dot"
-          invisible={ !timing }
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-          sx={{ 
-            '.MuiBadge-dot': {
-              transform: `translate3D(0, -1px, 0)`,
-              animation: timing ? 'opacity-pulse 500ms infinite linear alternate' : 'none',
-            },
-          }}
-        ><LogIcon sx={{ color: '#567' }} /></Badge>
+      <NavLink to="/" end>
+        <Stack direction="column" justifyContent="center" alignItems="center">
+          <TimerIcon sx={{ color: '#567' }} />
+          <Collapse in={ timing }>
+            <Typography variant="caption">{ msToHHMMSS(runtime) }</Typography>
+          </Collapse>
+        </Stack>
       </NavLink>
-      <NavLink exact to="/config"><ConfigIcon sx={{ color: '#567' }} /></NavLink>
+      <NavLink to="/config"><ConfigIcon sx={{ color: '#567' }} /></NavLink>
     </Stack>
   )
 }
 
 export const Layout = ({ children }) => {
-  const headerHeight = '3rem'
   const { categories, projects, config } = useTimer()
 
   return (
@@ -51,7 +56,7 @@ export const Layout = ({ children }) => {
       '& header': {
         zIndex: 9,
         position: 'sticky', top: 0, left: 0, width: '100%',
-        height: headerHeight,
+        height: '4rem',
         backgroundColor: '#66778866',
         display: 'flex',
         justifyContent: 'center',
@@ -69,14 +74,18 @@ export const Layout = ({ children }) => {
             justifyContent: 'center',
             alignItems: 'center',
             padding: '1rem',
+            minWidth: '85px',
             color: '#345',
             textDecoration: 'none',
             transition: 'background-color 250ms',
-            ':active': {
-              color: '#567',
+            '&.active': {
+              backgroundColor: '#66778822',
+              ':hover': {
+                backgroundColor: '#66778822',
+              },
             },
             ':hover': {
-              backgroundColor: '#66778833',
+              backgroundColor: '#66778811',
             },
           },
         },
@@ -85,11 +94,12 @@ export const Layout = ({ children }) => {
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
-        padding: '2rem',
+        padding: '1rem',
         width: '100%',
+        gap: 2,
       },
       '& footer': {
-        height: headerHeight,
+        height: '2rem',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

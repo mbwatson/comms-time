@@ -32,9 +32,15 @@ export const TimerProvider = ({ children }) => {
   const [categories, setCategories] = useState([])
   const [records, setRecords] = useState([])
   const [timing, setTiming] = useState(false)
+  const [runtime, setRuntime] = useState(0)
   const [config, setConfig] = useState({
     hiddenProjects: new Set(),
     hiddenCategories: new Set(),
+  })
+  const [record, setRecord] = useState({
+    project: '',
+    category: '',
+    title: '',
   })
 
   useEffect(() => {
@@ -62,17 +68,18 @@ export const TimerProvider = ({ children }) => {
     setTiming(true)
   }
 
-  const stopTimer = ({ project, category, title, startTime }) => {
+  const stopTimer = () => {
     const newRecord = {
       id: uuidv4(),
-      project,
-      category,
-      title,
-      startTime,
+      project: record.project,
+      category: record.category,
+      title: record.title,
+      startTime: record.startTime,
       endTime: new Date(),
     }
     setRecords([newRecord, ...records])
     setTiming(false)
+    setRuntime(0)
   }
 
   const deleteRecord = id => {
@@ -83,11 +90,42 @@ export const TimerProvider = ({ children }) => {
     setRecords([...records.filter(r => r.id !== id)])
   }
 
+  const duplicateAndStartNewRecord = id => {
+    const recordIndex = records.findIndex(r => r.id === id)
+    if (recordIndex < 0 || records.length <= recordIndex) {
+      return
+    }
+    const newRecord = {
+      ...records[recordIndex],
+      id: uuidv4(),
+      startTime: new Date(),
+    }
+    if (timing) {
+      stopTimer()
+    }
+    setRecord({ ...newRecord })
+    startTimer()
+  }
+
+  const handleChangeRecord = field => event => setRecord({
+    ...record,
+    [field]: event.target.value,
+  })
+
+  useEffect(() => {
+    let poller
+    if (!timing) {
+      return () => clearTimeout(poller)
+    }
+    poller = setInterval(() => setRuntime(Date.now() - record.startTime), 1000)
+    return () => clearInterval(poller)
+  }, [record, timing])
+
   return (
     <TimerContext.Provider value={{
       categories, projects,
-      records, deleteRecord,
-      timing, startTimer, stopTimer,
+      records, deleteRecord, record, setRecord, handleChangeRecord, duplicateAndStartNewRecord,
+      timing, startTimer, stopTimer, runtime,
       config, setConfig,
     }}>
       { children }

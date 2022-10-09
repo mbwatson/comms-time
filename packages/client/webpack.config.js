@@ -82,7 +82,7 @@ module.exports = {
   devServer: {
     hot: true,
     client: {
-      overlay: true,
+      overlay: false,
     },
     historyApiFallback: true,
     static: path.resolve(__dirname, 'dist'),

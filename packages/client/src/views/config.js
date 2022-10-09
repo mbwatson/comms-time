@@ -1,11 +1,14 @@
+import { Fragment } from 'react'
 import {
-  Card, CardHeader, Checkbox, Divider,
+  Box, Card, CardContent, CardHeader, Checkbox, Divider,
   List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack,
+  Typography, useMediaQuery,
 } from '@mui/material'
 import { useTimer } from '../context'
 
 export const ConfigView = () => {
-  const { categories, projects, config, setConfig } = useTimer()
+  const { categories, projects, config, setConfig, record } = useTimer()
+  const isSmallScreen = useMediaQuery('(max-width:600px)')
 
   const handleClickCategoryCheckbox = categoryId => () => {
     let newVisibleCategories = new Set(config.hiddenCategories)
@@ -28,79 +31,91 @@ export const ConfigView = () => {
   }
 
   return (
-    <Stack direction={{ sm: 'column', md: 'row' }} gap={ 4 }>
-      <Card
-        variant="outlined"
-        sx={{ backgroundColor: '#66778811', flex: 1 }}
-      >
-        <CardHeader title="Projects" />
+    <Fragment>
+      <Card sx={{ backgroundColor: '#66778811' }}>
+        <CardHeader title="Configuration" />
         
+        <CardContent>
+          <Typography paragraph>
+            Select the projects and categories below
+            that you wish to appear as options in the application timer.
+          </Typography>
+        </CardContent>
+      
         <Divider />
 
-        <List>
-          {
-            projects.map(project => {
-              const labelId = `project-${ project.id }-label`
-              return (
-                <ListItem key={ `project-${ project.id }` } disablePadding>
-                  <ListItemButton
-                    role={ undefined }
-                    onClick={ handleClickProjectCheckbox(project.id) }
-                    dense
-                  >
-                    <ListItemIcon>
-                      <Checkbox
-                        edge="start"
-                        checked={ !config.hiddenProjects.has(project.id) } 
-                        tabIndex={ -1 }
-                        disableRipple
-                        inputProps={{ 'aria-labelledby': labelId }}
-                      />
-                    </ListItemIcon>
-                    <ListItemText id={ labelId } primary={ project.name } />
-                  </ListItemButton>
-                </ListItem>
-              )
-            })
-          }
-        </List>
-      </Card>
+        <CardContent>
+          <Stack direction={{ sx: 'column', sm: 'row' }} gap={ 2 }>
+            <Box sx={{ flex: 1 }}>
+              <Typography variant="h6">Projects</Typography>
+              <List>
+                {
+                  projects.map(project => {
+                    const labelId = `project-${ project.id }-label`
+                    return (
+                      <ListItem key={ `project-${ project.id }` } disablePadding>
+                        <ListItemButton
+                          role={ undefined }
+                          onClick={ handleClickProjectCheckbox(project.id) }
+                          dense
+                          disabled={ record.project === project.id }
+                        >
+                          <ListItemIcon>
+                            <Checkbox
+                              edge="start"
+                              checked={ !config.hiddenProjects.has(project.id) } 
+                              tabIndex={ -1 }
+                              disableRipple
+                              inputProps={{ 'aria-labelledby': labelId }}
+                            />
+                          </ListItemIcon>
+                          <ListItemText id={ labelId } primary={ project.name } />
+                        </ListItemButton>
+                      </ListItem>
+                    )
+                  })
+                }
+              </List>
+            </Box>
 
-      <Card
-        variant="outlined"
-        sx={{ backgroundColor: '#66778811', flex: 1 }}
-      >
-        <CardHeader title="Categories" />
-        <Divider />
-        <List>
-          {
-            categories.map(category => {
-              const labelId = `category-${ category.id }-label`
-              return (
-                <ListItem key={ `category-${ category.id }` } disablePadding>
-                  <ListItemButton
-                    role={ undefined }
-                    onClick={ handleClickCategoryCheckbox(category.id) }
-                    dense
-                  >
-                    <ListItemIcon>
-                      <Checkbox
-                        edge="start"
-                        checked={ !config.hiddenCategories.has(category.id) } 
-                        tabIndex={ -1 }
-                        disableRipple
-                        inputProps={{ 'aria-labelledby': labelId }}
-                      />
-                    </ListItemIcon>
-                    <ListItemText id={ labelId } primary={ category.name } />
-                  </ListItemButton>
-                </ListItem>
-              )
-            })
-          }
-        </List>
-      </Card>
+            { isSmallScreen ? <Divider /> : <Divider orientation="vertical" flexItem /> }
 
-    </Stack>
+            <Box sx={{ flex: 1 }}>
+              <Typography variant="h6">Categories</Typography>
+              <List>
+                {
+                  categories.map(category => {
+                    const labelId = `category-${ category.id }-label`
+                    return (
+                      <ListItem key={ `category-${ category.id }` } disablePadding>
+                        <ListItemButton
+                          role={ undefined }
+                          onClick={ handleClickCategoryCheckbox(category.id) }
+                          dense
+                          disabled={ record.category === category.id }
+                        >
+                          <ListItemIcon>
+                            <Checkbox
+                              edge="start"
+                              checked={ !config.hiddenCategories.has(category.id) } 
+                              tabIndex={ -1 }
+                              disableRipple
+                              inputProps={{ 'aria-labelledby': labelId }}
+                            />
+                          </ListItemIcon>
+                          <ListItemText id={ labelId } primary={ category.name } />
+                        </ListItemButton>
+                      </ListItem>
+                    )
+                  })
+                }
+              </List>
+            </Box>
+
+          </Stack>
+
+        </CardContent>
+      </Card>
+    </Fragment>
   )
 }

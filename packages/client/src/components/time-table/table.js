@@ -1,10 +1,15 @@
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid'
-import { Delete as DeleteIcon } from '@mui/icons-material'
+import {
+  PlayArrow as DuplicateIcon,
+  Delete as DeleteIcon,
+} from '@mui/icons-material'
+import { useTheme } from '@mui/material'
 import { useTimer } from '../../context'
 import { CategoryCell, DateTimeCell, ProjectCell } from './renderers'
 
 export const TimeTable = () => {
-  const { categories, projects, records, deleteRecord } = useTimer()
+  const theme = useTheme()
+  const { categories, projects, records, deleteRecord, duplicateAndStartNewRecord } = useTimer()
   const columns = [
     {
       field: 'project',
@@ -63,6 +68,14 @@ export const TimeTable = () => {
           icon={ <DeleteIcon /> }
           label="Delete Record"
           onClick={ () => deleteRecord(id) }
+          sx={{ ':hover': { color: theme.palette.error.dark } }}
+        />,
+        <GridActionsCellItem
+          key="duplicate-record-action"
+          icon={ <DuplicateIcon /> }
+          label="Duplicate Record"
+          onClick={ () => duplicateAndStartNewRecord(id) }
+          sx={{ ':hover': { color: theme.palette.primary.dark } }}
         />,
       ],
     },
