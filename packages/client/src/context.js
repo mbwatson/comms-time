@@ -32,6 +32,10 @@ export const TimerProvider = ({ children }) => {
   const [categories, setCategories] = useState([])
   const [records, setRecords] = useState([])
   const [timing, setTiming] = useState(false)
+  const [config, setConfig] = useState({
+    hiddenProjects: new Set(),
+    hiddenCategories: new Set(),
+  })
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,12 +44,12 @@ export const TimerProvider = ({ children }) => {
           axios.get('http://localhost:3030/categories'),
           axios.get('http://localhost:3030/projects'),
         ])
-        if (!responses) {
+        const [categoriesResponse, projectsResponse] = responses
+        if (!categoriesResponse || !projectsResponse) {
           throw new Error('no responses')
         }
-        const [categories, projects] = responses
-        setProjects([...projects.data])
-        setCategories([...categories.data])
+        setProjects([...projectsResponse.data])
+        setCategories([...categoriesResponse.data])
       } catch (error) {
         console.error(error.message)
       }
@@ -84,6 +88,7 @@ export const TimerProvider = ({ children }) => {
       categories, projects,
       records, deleteRecord,
       timing, startTimer, stopTimer,
+      config, setConfig,
     }}>
       { children }
     </TimerContext.Provider>

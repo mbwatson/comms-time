@@ -44,8 +44,20 @@ export const EntryForm = ({ categories, projects }) => {
     clearInputs()
   }
 
+  const handleKeyDowninTitleInput = event => {
+    if (event.keyCode === 13) {
+      if (timing) {
+        stopTimer({ ...record })
+      } else {
+        setRecord({ ...record, startTime: new Date() })
+        startTimer()
+      }
+    }
+  }
+
   return (
     <Card
+      square
       variant="outlined"
       component={ Stack }
       direction={{ sm: 'column', md: 'row' }}
@@ -54,7 +66,7 @@ export const EntryForm = ({ categories, projects }) => {
       sx={{
         p: 2,
         backgroundColor: '#66778811',
-        border: `1px solid ${ (record.project && record.category)
+        borderBottom: `1px solid ${ (record.project && record.category)
           ? '#556'
           : theme.palette.grey[300] }`,
         position: 'relative',
@@ -112,6 +124,7 @@ export const EntryForm = ({ categories, projects }) => {
           value={ record.title }
           label="Title"
           onChange={ handleChangeRecord('title') }
+          onKeyDown={ handleKeyDowninTitleInput }
         />
 
         <Divider orientation="vertical" flexItem />

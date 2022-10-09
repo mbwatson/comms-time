@@ -14,7 +14,7 @@ export const TimeTable = () => {
         value: proj.id,
         label: proj.name,
       })),
-      width: 120,
+      width: 175,
       editable: true,
       renderCell: d => <ProjectCell projectId={ d.row.project } />,
     },
@@ -54,7 +54,8 @@ export const TimeTable = () => {
       editable: true,
     },
     {
-      headerName: '',
+      field: '',
+      headerName: 'Actions',
       type: 'actions',
       getActions: ({ id }) => [
         <GridActionsCellItem
