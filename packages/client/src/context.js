@@ -42,7 +42,6 @@ export const TimerProvider = ({ children }) => {
       }
     }
     fetchData()
-    setRecords([])
   }, [])
 
   const startTimer = () => {
