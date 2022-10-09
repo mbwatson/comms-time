@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { createContext, useContext } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import axios from 'axios'
+import { useLocalStorage } from './util'
 
 const TimerContext = createContext({ })
 
@@ -30,7 +31,7 @@ const dummyTimeRecords = [
 export const TimerProvider = ({ children }) => {
   const [projects, setProjects] = useState([])
   const [categories, setCategories] = useState([])
-  const [records, setRecords] = useState([])
+  const [records, setRecords] = useLocalStorage('comms-time', [])
   const [timing, setTiming] = useState(false)
   const [runtime, setRuntime] = useState(0)
   const [config, setConfig] = useState({
