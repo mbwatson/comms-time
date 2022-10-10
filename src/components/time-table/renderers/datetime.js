@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { Stack, Typography } from '@mui/material'
 
 export const DateTimeCell = ({ datetime }) => {
   if (!datetime) {
@@ -7,9 +8,17 @@ export const DateTimeCell = ({ datetime }) => {
 
   const date = new Date(datetime)
 
-  return `${ date.toLocaleDateString() }, ${ date.toLocaleTimeString() }`
+  return (
+    <Stack>
+      <Typography variant="string" color="text.primary">{ date.toLocaleTimeString() }</Typography>
+      <Typography variant="caption" color="text.secondary">{ date.toLocaleDateString() }</Typography>
+    </Stack>
+  )
 }
 
 DateTimeCell.propTypes = {
-  datetime: PropTypes.string.isRequired,
+  datetime: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]).isRequired,
 }

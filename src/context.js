@@ -49,7 +49,7 @@ export const TimerProvider = ({ children }) => {
       category: record.category,
       title: record.title,
       startTime: record.startTime,
-      endTime: new Date(),
+      endTime: new Date().toLocaleString(),
     }
     setTiming(false)
     setRuntime(0)
@@ -85,7 +85,7 @@ export const TimerProvider = ({ children }) => {
     const newRecord = {
       ...records[recordIndex],
       id: uuidv4(),
-      startTime: new Date(),
+      startTime: new Date().toLocaleString(),
     }
     if (timing) {
       stopTimerAndAddCurrentRecord()
@@ -112,12 +112,12 @@ export const TimerProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    let poller
+    let runtimePoller
     if (!timing) {
-      return () => clearTimeout(poller)
+      return () => clearTimeout(runtimePoller)
     }
-    poller = setInterval(() => setRuntime(Date.now() - record.startTime), 1000)
-    return () => clearInterval(poller)
+    runtimePoller = setInterval(() => setRuntime(Date.now() - new Date(record.startTime).valueOf()), 1000)
+    return () => clearInterval(runtimePoller)
   }, [record, timing])
 
   return (

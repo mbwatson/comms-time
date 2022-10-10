@@ -6,12 +6,13 @@ function randomDate(from, to) {
 }
 
 export const generateRecord = ({ categories, projects }) => {
-  return {
+  const newRecord = {
     id: uuidv4(),
     project: projects[Math.floor(Math.random() * projects.length)].id,
     category: categories[Math.floor(Math.random() * categories.length)].id,
     title: loremIpsum(),
-    startTime: randomDate(Date.now() - 1000 * 60 * 60 * 30, Date.now() - 1000 * 60 * 60 * 20),
-    endTime: randomDate(Date.now() - 1000 * 60 * 60 * 20, Date.now() - 1000 * 60 * 60 * 10),
+    startTime: randomDate(Date.now() - 1000 * 60 * 30, Date.now() - 1000 * 60 * 20).toLocaleString(),
+    endTime: randomDate(Date.now() - 1000 * 60 * 20, Date.now() - 1000 * 60 * 10).toLocaleString(),
   }
+  return newRecord
 }
