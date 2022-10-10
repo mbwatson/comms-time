@@ -13,6 +13,8 @@ export const ConfigView = () => {
   const { categories, projects, config, setConfig, record, addFakeRecord } = useTimer()
   const isSmallScreen = useMediaQuery('(max-width:600px)')
 
+  console.log(projects)
+
   const handleClickCategoryCheckbox = categoryId => () => {
     let newVisibleCategories = new Set(config.hiddenCategories)
     if (newVisibleCategories.has(categoryId)) {
@@ -86,7 +88,7 @@ export const ConfigView = () => {
                             primary={ <Typography variant="body1">{ project.name }</Typography> }
                             secondary={
                               <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, 'svg': { transform: 'scale(0.75)' } }}>
-                                <Typography variant="caption">{ project.group }</Typography> <DotIcon sx={{ color: project.color }} fontSize="small" />
+                                <Typography variant="caption">{ project.group.name }</Typography> <DotIcon sx={{ color: project.group.color }} fontSize="small" />
                               </Box>
                             }
                             sx={{
