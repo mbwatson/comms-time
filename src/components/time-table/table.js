@@ -9,7 +9,7 @@ import { CategoryCell, DateTimeCell, DurationCell, ProjectCell } from './rendere
 
 export const TimeTable = () => {
   const theme = useTheme()
-  const { categories, projects, records, deleteRecord, duplicateAndStartNewRecord } = useTimer()
+  const { categories, projects, records, updateRecord, deleteRecord, duplicateAndStartNewRecord } = useTimer()
   const columns = [
     {
       field: 'project',
@@ -88,6 +88,12 @@ export const TimeTable = () => {
       ],
     },
   ]
+
+  const processRowUpdate = newRow => {
+    const newRecords = [...records]
+    updateRecord(newRow.id, newRow)
+    return newRow
+  }
  
   return (
     <DataGrid
@@ -96,6 +102,7 @@ export const TimeTable = () => {
       sx={{ backgroundColor: '#66778811', }}
       disableSelectionOnClick
       experimentalFeatures={{ newEditingApi: true }}
+      processRowUpdate={ processRowUpdate }
     />
   )
 }

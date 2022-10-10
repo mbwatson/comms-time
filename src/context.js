@@ -78,6 +78,16 @@ export const TimerProvider = ({ children }) => {
     [field]: event.target.value,
   })
 
+  const updateRecord = (id, newRecord) => {
+    const newRecords = [...records]
+    const recordIndex = newRecords.findIndex(r => r.id === id)
+    if (recordIndex < 0 || newRecords.length <= recordIndex) {
+      return
+    }
+    newRecords[recordIndex] = { ...newRecord }
+    setRecords([...newRecords])
+  }
+
   useEffect(() => {
     let poller
     if (!timing) {
@@ -90,7 +100,7 @@ export const TimerProvider = ({ children }) => {
   return (
     <TimerContext.Provider value={{
       categories, projects,
-      records, deleteRecord, record, setRecord, handleChangeRecord, duplicateAndStartNewRecord, addFakeRecord,
+      records, deleteRecord, record, setRecord, handleChangeRecord, duplicateAndStartNewRecord, addFakeRecord, updateRecord,
       timing, startTimer, stopTimer, runtime,
       config, setConfig,
     }}>
