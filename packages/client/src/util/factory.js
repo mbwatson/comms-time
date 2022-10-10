@@ -6,8 +6,6 @@ function randomDate(from, to) {
 }
 
 export const generateRecord = ({ categories, projects }) => {
-  console.log(projects[Math.floor(Math.random() * projects.length)].id)
-  console.log(categories[Math.floor(Math.random() * categories.length)].id)
   return {
     id: uuidv4(),
     project: projects[Math.floor(Math.random() * projects.length)].id,

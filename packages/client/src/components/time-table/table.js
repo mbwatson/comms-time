@@ -9,7 +9,7 @@ import { CategoryCell, DateTimeCell, DurationCell, ProjectCell } from './rendere
 
 export const TimeTable = () => {
   const theme = useTheme()
-  const { categories, projects, records, deleteRecord, duplicateAndStartNewRecord } = useTimer()
+  const { categories, projects, record, setRecord, records, deleteRecord, duplicateAndStartNewRecord } = useTimer()
   const columns = [
     {
       field: 'project',
@@ -63,7 +63,7 @@ export const TimeTable = () => {
       headerName: 'Duration',
       type: 'string',
       width: 100,
-      renderCell: d => <DurationCell { ...d } />,
+      renderCell: d => <DurationCell startTime={ d.row.startTime } endTime={ d.row.endTime } />,
       editable: false,
     },
     {
@@ -95,6 +95,7 @@ export const TimeTable = () => {
       rows={ records }
       sx={{ backgroundColor: '#66778811', }}
       disableSelectionOnClick
+      experimentalFeatures={{ newEditingApi: true }}
     />
   )
 }
