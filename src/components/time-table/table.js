@@ -19,7 +19,7 @@ export const TimeTable = () => {
         value: proj.id,
         label: proj.name,
       })),
-      width: 175,
+      width: 300,
       editable: true,
       renderCell: d => <ProjectCell projectId={ d.row.project } />,
     },
