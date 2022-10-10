@@ -9,7 +9,7 @@ import { CategoryCell, DateTimeCell, DurationCell, ProjectCell } from './rendere
 
 export const TimeTable = () => {
   const theme = useTheme()
-  const { categories, projects, records, updateRecord, deleteRecord, duplicateAndStartNewRecord } = useTimer()
+  const { categories, projects, records = [], updateRecord, deleteRecord, duplicateAndStartNewRecord } = useTimer()
   const columns = [
     {
       field: 'project',

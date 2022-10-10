@@ -46,7 +46,7 @@ export const TimerProvider = ({ children }) => {
     }
   }
 
-  const stopTimer = () => {
+  const stopTimerAndAddCurrentRecord = () => {
     const newRecord = {
       id: uuidv4(),
       project: record.project,
@@ -55,10 +55,10 @@ export const TimerProvider = ({ children }) => {
       startTime: record.startTime,
       endTime: new Date(),
     }
-    addRecord(newRecord)
     setTiming(false)
     setRuntime(0)
     notify('info', 'timer stopped')
+    addRecord(newRecord)
   }
 
   const deleteRecord = id => {
@@ -92,7 +92,7 @@ export const TimerProvider = ({ children }) => {
       startTime: new Date(),
     }
     if (timing) {
-      stopTimer()
+      stopTimerAndAddCurrentRecord()
     }
     setRecord({ ...newRecord })
     startTimer()
@@ -129,7 +129,7 @@ export const TimerProvider = ({ children }) => {
       categories, projects,
       record, setRecord, handleChangeRecord,
       records, deleteRecord, duplicateAndStartNewRecord, updateRecord, addFakeRecord,
-      timing, startTimer, stopTimer, runtime,
+      timing, startTimer, stopTimerAndAddCurrentRecord, runtime,
       config, setConfig,
     }}>
       { children }
