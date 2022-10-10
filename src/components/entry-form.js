@@ -10,6 +10,7 @@ import {
   Pause as PauseTimerIcon,
 } from '@mui/icons-material'
 import { useTimer } from '../context'
+import { FiberManualRecord as DotIcon } from '@mui/icons-material'
 
 export const EntryForm = ({ categories, projects }) => {
   const theme = useTheme()
@@ -51,7 +52,18 @@ export const EntryForm = ({ categories, projects }) => {
           ...options,
           <ListSubheader
             key={ `project-select-group-${ group.id }-header` }
-          >{ group.name }</ListSubheader>,
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1,
+              backgroundColor: theme.palette.background.default,
+              borderTop: `1px solid ${ theme.palette.divider }`,
+              borderBottom: `1px solid ${ theme.palette.divider }`,
+              'svg': { transform: 'scale(0.75)' } }}
+          >
+            <DotIcon sx={{ color: group.color }} fontSize="small" />
+            { group.name }
+          </ListSubheader>,
           ...projects
             .filter(proj => proj.groupId === group.id)
             .map(({ id, name }) => (
