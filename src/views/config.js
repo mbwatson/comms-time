@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useMemo } from 'react'
 import {
   Box, Button, Card, CardContent, CardHeader, Checkbox, Divider,
   List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack,
@@ -12,8 +12,6 @@ export const ConfigView = () => {
   const theme = useTheme()
   const { categories, projects, config, setConfig, record, addFakeRecord } = useTimer()
   const isSmallScreen = useMediaQuery('(max-width:600px)')
-
-  console.log(projects)
 
   const handleClickCategoryCheckbox = categoryId => () => {
     let newVisibleCategories = new Set(config.hiddenCategories)
@@ -34,6 +32,49 @@ export const ConfigView = () => {
     }
     setConfig({ ...config, hiddenProjects: newHiddenProjects })
   }
+
+  const projectOptions = useMemo(() => {
+    return [
+      ...projects.map(project => {
+        const labelId = `project-${ project.id }-label`
+        return (
+          <ListItem key={ `project-${ project.id }` } disablePadding>
+            <ListItemButton
+              role={ undefined }
+              onClick={ handleClickProjectCheckbox(project.id) }
+              dense
+              disabled={ record.project === project.id }
+            >
+              <ListItemIcon>
+                <Checkbox
+                  edge="start"
+                  checked={ !config.hiddenProjects.has(project.id) } 
+                  tabIndex={ -1 }
+                  disableRipple
+                  inputProps={{ 'aria-labelledby': labelId }}
+                />
+              </ListItemIcon>
+              <ListItemText
+                disableTypography
+                id={ labelId }
+                primary={ <Typography variant="body1">{ project.name }</Typography> }
+                secondary={
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, 'svg': { transform: 'scale(0.75)' } }}>
+                    <Typography variant="caption">{ project.group.name }</Typography> <DotIcon sx={{ color: project.group.color }} fontSize="small" />
+                  </Box>
+                }
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  '.MuiListItemText-secondary': { color: theme.palette.text.secondary }
+                }}
+              />
+            </ListItemButton>
+          </ListItem>
+        )
+      })
+    ]
+  }, [])
 
   return (
     <Fragment>
@@ -62,46 +103,7 @@ export const ConfigView = () => {
             <Box className="scrollable-list">
               <Typography variant="h6">Projects</Typography>
               <List>
-                {
-                  projects.map(project => {
-                    const labelId = `project-${ project.id }-label`
-                    return (
-                      <ListItem key={ `project-${ project.id }` } disablePadding>
-                        <ListItemButton
-                          role={ undefined }
-                          onClick={ handleClickProjectCheckbox(project.id) }
-                          dense
-                          disabled={ record.project === project.id }
-                        >
-                          <ListItemIcon>
-                            <Checkbox
-                              edge="start"
-                              checked={ !config.hiddenProjects.has(project.id) } 
-                              tabIndex={ -1 }
-                              disableRipple
-                              inputProps={{ 'aria-labelledby': labelId }}
-                            />
-                          </ListItemIcon>
-                          <ListItemText
-                            disableTypography
-                            id={ labelId }
-                            primary={ <Typography variant="body1">{ project.name }</Typography> }
-                            secondary={
-                              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, 'svg': { transform: 'scale(0.75)' } }}>
-                                <Typography variant="caption">{ project.group.name }</Typography> <DotIcon sx={{ color: project.group.color }} fontSize="small" />
-                              </Box>
-                            }
-                            sx={{
-                              display: 'flex',
-                              justifyContent: 'space-between',
-                              '.MuiListItemText-secondary': { color: theme.palette.text.secondary }
-                            }}
-                          />
-                        </ListItemButton>
-                      </ListItem>
-                    )
-                  })
-                }
+                { projectOptions }
               </List>
             </Box>
 
