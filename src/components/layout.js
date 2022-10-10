@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 import {
   Settings as ConfigIcon,
   AccessTime as TimerIcon,
+  GitHub as GitHubIcon,
 } from '@mui/icons-material'
 import { useTimer } from '../context'
 import { EntryForm } from '../components/entry-form'
@@ -14,16 +15,19 @@ const Menu = () => {
   const { timing, runtime } = useTimer()
 
   return (
-    <Stack direction="row" component="nav" alignItems="center">
+    <Stack direction="row" component="nav" alignItems="center" sx={{
+      '.MuiSvgIcon': { color: theme.palette.background.paper }
+    }}>
       <NavLink to="/" end>
         <Stack direction="column" justifyContent="center" alignItems="center">
-          <TimerIcon sx={{ color: theme.palette.background.paper }} />
+          <TimerIcon />
           <Collapse in={ timing }>
             <Typography variant="caption">{ msToHHMMSS(runtime) }</Typography>
           </Collapse>
         </Stack>
       </NavLink>
-      <NavLink to="/config"><ConfigIcon sx={{ color: theme.palette.background.paper }} /></NavLink>
+      <NavLink to="/config"><ConfigIcon /></NavLink>
+      <a href="https://github.com/mbwatson/comms-time" target="_blank" rel="noopener noreferrer"><GitHubIcon /></a>
     </Stack>
   )
 }
