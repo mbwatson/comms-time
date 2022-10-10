@@ -25,7 +25,7 @@ const Statistic = ({ label, value }) => {
 
 Statistic.propTypes = {
   label: PropTypes.string.isRequired,
-  value: PropTypes.oneOf([
+  value: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
   ]).isRequired,
