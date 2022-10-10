@@ -1,8 +1,8 @@
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import {
   Box, Card, Button, ButtonGroup, Divider, FormControl, InputLabel,
-  MenuItem, Select, Stack, TextField, useTheme,
+  ListSubheader, MenuItem, Select, Stack, TextField, useTheme,
 } from '@mui/material'
 import {
   PlayArrow as StartTimerIcon,
@@ -10,10 +10,11 @@ import {
   Pause as PauseTimerIcon,
 } from '@mui/icons-material'
 import { useTimer } from '../context'
+import { FiberManualRecord as DotIcon } from '@mui/icons-material'
 
 export const EntryForm = ({ categories, projects }) => {
   const theme = useTheme()
-  const { startTimer, stopTimerAndAddCurrentRecord, timing, record, setRecord, handleChangeRecord } = useTimer()
+  const { startTimer, stopTimerAndAddCurrentRecord, timing, record, setRecord, handleChangeRecord, groups } = useTimer()
 
   const clearInputs = useCallback(() => {
     setRecord({ project: '', category: '', title: '', })
@@ -44,6 +45,37 @@ export const EntryForm = ({ categories, projects }) => {
     }
   }
 
+  const groupedProjectOptions = useMemo(() => {
+    return groups
+      .reduce((options, group) => {
+        return [
+          ...options,
+          <ListSubheader
+            key={ `project-select-group-${ group.id }-header` }
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1,
+              backgroundColor: theme.palette.background.default,
+              borderTop: `1px solid ${ theme.palette.divider }`,
+              borderBottom: `1px solid ${ theme.palette.divider }`,
+              'svg': { transform: 'scale(0.75)' } }}
+          >
+            <DotIcon sx={{ color: group.color }} fontSize="small" />
+            { group.name }
+          </ListSubheader>,
+          ...projects
+            .filter(proj => proj.groupId === group.id)
+            .map(({ id, name }) => (
+              <MenuItem
+                key={ `project-option-${ id }` }
+                value={ id }
+              >{ name }</MenuItem>
+            ))
+        ]
+      }, [])
+  }, [])
+
   return (
     <Box>
       <Card
@@ -73,14 +105,7 @@ export const EntryForm = ({ categories, projects }) => {
               label="Project"
               onChange={ handleChangeRecord('project') }
             >
-              {
-                projects.map(({ id, name, group }) => (
-                  <MenuItem
-                    key={ `project-${ id }` }
-                    value={ id }
-                  >{ `${ name } - ${ group }` }</MenuItem>
-                ))
-              }
+              { groupedProjectOptions }
             </Select>
           </FormControl>
           <FormControl sx={{ flex: 1 }} size="small">

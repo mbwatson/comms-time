@@ -4,7 +4,7 @@ import { createContext, useContext } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 const TimerContext = createContext({ })
 import { generateRecord, useLocalStorage } from './util'
-import { categories, projects } from './data'
+import { categories, groups, projects } from './data'
 import { toast } from 'react-toastify'
 
 export const useTimer = () => useContext(TimerContext)
@@ -122,7 +122,7 @@ export const TimerProvider = ({ children }) => {
 
   return (
     <TimerContext.Provider value={{
-      categories, projects,
+      categories, groups, projects,
       record, setRecord, handleChangeRecord,
       records, deleteRecord, duplicateAndStartNewRecord, updateRecord, addFakeRecord,
       timing, startTimer, stopTimerAndAddCurrentRecord, runtime,

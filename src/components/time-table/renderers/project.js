@@ -9,8 +9,8 @@ export const ProjectCell = ({ projectId }) => {
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, 'svg': { transform: 'scale(0.75)' } }}>
-      <Tooltip placement="top" title={ project.group }>
-        <DotIcon sx={{ color: project.color }} fontSize="small" />
+      <Tooltip placement="top" title={ project.group.name }>
+        <DotIcon sx={{ color: project.group.color }} fontSize="small" />
       </Tooltip>
       { project.name }
     </Box>
