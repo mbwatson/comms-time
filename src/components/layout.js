@@ -2,8 +2,9 @@ import PropTypes from 'prop-types'
 import { Box, Collapse, Stack, Typography, useTheme } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 import {
-  Settings as ConfigIcon,
   AccessTime as TimerIcon,
+  BarChart as ReportsIcon,
+  Settings as ConfigIcon,
   GitHub as GitHubIcon,
 } from '@mui/icons-material'
 import { useTimer } from '../context'
@@ -28,6 +29,7 @@ const Menu = () => {
           </Collapse>
         </Stack>
       </NavLink>
+      <NavLink to="/reports"><ReportsIcon /></NavLink>
       <NavLink to="/config"><ConfigIcon /></NavLink>
       <a href="https://github.com/mbwatson/comms-time" target="_blank" rel="noopener noreferrer"><GitHubIcon /></a>
     </Stack>
