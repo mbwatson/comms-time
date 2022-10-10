@@ -5,7 +5,7 @@ import {
 } from '@mui/icons-material'
 import { Card, useTheme } from '@mui/material'
 import { useTimer } from '../../context'
-import { CategoryCell, DateTimeCell, DurationCell, ProjectCell } from './renderers'
+import { CategoryCell, DateTimeCell, DurationCell, GroupCell, ProjectCell } from './renderers'
 
 export const TimeTable = () => {
   const theme = useTheme()
@@ -19,7 +19,7 @@ export const TimeTable = () => {
         value: proj.id,
         label: proj.name,
       })),
-      width: 300,
+      width: 225,
       editable: true,
       renderCell: d => <ProjectCell projectId={ d.row.project } />,
     },
