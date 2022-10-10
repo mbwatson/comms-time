@@ -30,6 +30,8 @@ export const ConfigView = () => {
     } else {
       newHiddenProjects.add(projectId)
     }
+    console.log(projectId)
+    console.log({ ...config, hiddenProjects: newHiddenProjects })
     setConfig({ ...config, hiddenProjects: newHiddenProjects })
   }
 
@@ -74,7 +76,7 @@ export const ConfigView = () => {
         )
       })
     ]
-  }, [])
+  }, [config.hiddenCategories, config.hiddenProjects])
 
   return (
     <Fragment>
