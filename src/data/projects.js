@@ -1,6 +1,7 @@
 const work = {
   nrig: {
     name: 'Network Research & Infrastructure',
+    color: '#666',
     projects: [
       { id: 'aerpaw',                                               name: 'AERPAW' },
       { id: 'atlanticwave-sdx',                                     name: 'AtlanticWave-SDX' },
@@ -23,6 +24,7 @@ const work = {
   },
   eds: {
     name: 'Earth Data Science',
+    color: '#666',
     projects: [
       { id: 'coastal-hazards-and-risks',                            name: 'Coastal Hazards and Risks' },
       { id: 'coupling-flood-models',                                name: 'Coupling Flood Models' },
@@ -33,6 +35,7 @@ const work = {
   },
   analytics: {
     name: 'Data Science & Analytics',
+    color: '#666',
     projects: [
       { id: 'ccdh',                                                 name: 'Center for Cancer Data Harmonization' },
       { id: 'chemotext2',                                           name: 'Chemotext2' },
@@ -51,6 +54,7 @@ const work = {
   },
   health: {
     name: 'Health Informatics',
+    color: '#666',
     projects: [
       { id: 'nc-tracs',                                             name: 'NC TraCS' },
       { id: 'platform-for-analyzing-whole-brain-images',            name: 'Platform for Analyzing Whole Brain Images' },
@@ -60,6 +64,7 @@ const work = {
   },
   software: {
     name: 'Software Architecture',
+    color: '#666',
     projects: [
       { id: 'biodata-catalyst',                                     name: 'BioData Catalyst' },
       { id: 'brain-i',                                              name: 'BRAIN-I' },
@@ -70,6 +75,7 @@ const work = {
   },
   renci: {
     name: 'RENCI',
+    color: '#008da8',
     projects: [
       { id: 'bdc3',                                                 name: 'BDC3' },
       { id: 'bdc3-fellows',                                         name: 'BDC3: Fellows Program' },
@@ -81,12 +87,14 @@ const work = {
   },
   comms: {
     name: 'Comms',
+    color: '#666',
     projects: [
       { id: 'comms-admin',                                          name: 'Administrative' },
     ],
   },
   general: {
     name: 'General',
+    color: '#666',
     projects: [
       { id: 'meeting',                                              name: 'Meeting' },
       { id: 'misc',                                                 name: 'Miscellaneous' },
@@ -105,6 +113,7 @@ const allProjects = Object.keys(work)
       ...groupProjects.map(({ id, name }) => ({
         id: id,
         name: `${ name } (${ groupName })`,
+        color: work[groupKey].color,
       }))
     ]
   }, [])

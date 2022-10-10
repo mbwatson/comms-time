@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types'
+import { Box } from '@mui/material'
+import { FiberManualRecord as DotIcon } from '@mui/icons-material'
 import { useTimer } from '../../../context'
 
 export const ProjectCell = ({ projectId }) => {
@@ -9,7 +11,13 @@ export const ProjectCell = ({ projectId }) => {
     return 'UNKNOWN'
   }
 
-  return project.name
+  const color = project.color
+
+  return (
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, 'svg': { transform: 'scale(0.75)' } }}>
+      <DotIcon sx={{ color }} fontSize="small" /> { project.name }
+    </Box>
+  )
 }
 
 ProjectCell.propTypes = {
