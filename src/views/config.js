@@ -1,13 +1,14 @@
 import { Fragment } from 'react'
 import {
-  Box, Card, CardContent, CardHeader, Checkbox, Divider,
+  Box, Button, Card, CardContent, CardHeader, Checkbox, Divider,
   List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack,
   Typography, useMediaQuery,
 } from '@mui/material'
+import { MoreTime as AddIcon } from '@mui/icons-material'
 import { useTimer } from '../context'
 
 export const ConfigView = () => {
-  const { categories, projects, config, setConfig, record } = useTimer()
+  const { categories, projects, config, setConfig, record, addFakeRecord } = useTimer()
   const isSmallScreen = useMediaQuery('(max-width:600px)')
 
   const handleClickCategoryCheckbox = categoryId => () => {
@@ -32,13 +33,21 @@ export const ConfigView = () => {
 
   return (
     <Fragment>
-      <Card sx={{ backgroundColor: '#66778811' }}>
+      <Card sx={{
+        '.scrollable-list': {
+          flex: 1,
+          maxHeight: '33vh',
+          overflowY: 'scroll',
+        }
+      }}>
         <CardHeader title="Configuration" />
         
         <CardContent>
           <Typography paragraph>
             Select the projects and categories below
             that you wish to appear as options in the application timer.
+            The project and timer used in a running timer are
+            unavailable for toggling while that timer runs.
           </Typography>
         </CardContent>
       
@@ -46,7 +55,7 @@ export const ConfigView = () => {
 
         <CardContent>
           <Stack direction={{ sx: 'column', sm: 'row' }} gap={ 2 }>
-            <Box sx={{ flex: 1 }}>
+            <Box className="scrollable-list">
               <Typography variant="h6">Projects</Typography>
               <List>
                 {
@@ -80,7 +89,7 @@ export const ConfigView = () => {
 
             { isSmallScreen ? <Divider /> : <Divider orientation="vertical" flexItem /> }
 
-            <Box sx={{ flex: 1 }}>
+            <Box className="scrollable-list">
               <Typography variant="h6">Categories</Typography>
               <List>
                 {
@@ -114,6 +123,20 @@ export const ConfigView = () => {
 
           </Stack>
 
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader title="Generate Records" />
+
+        <Divider />
+        
+        <CardContent>
+          <Button
+            variant="outlined"
+            onClick={ addFakeRecord }
+            startIcon={ <AddIcon /> }
+          >Add Fake Record</Button>
         </CardContent>
       </Card>
     </Fragment>

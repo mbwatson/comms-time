@@ -6,14 +6,14 @@ import {
 } from '@mui/material'
 import {
   PlayArrow as StartTimerIcon,
-  Stop as StopTimerIcon,
+  Stop as StopTimerAndAddCurrentRecordIcon,
   Pause as PauseTimerIcon,
 } from '@mui/icons-material'
 import { useTimer } from '../context'
 
 export const EntryForm = ({ categories, projects }) => {
   const theme = useTheme()
-  const { startTimer, stopTimer, timing, record, setRecord, handleChangeRecord } = useTimer()
+  const { startTimer, stopTimerAndAddCurrentRecord, timing, record, setRecord, handleChangeRecord } = useTimer()
 
   const clearInputs = useCallback(() => {
     setRecord({ project: '', category: '', title: '', })
@@ -25,18 +25,18 @@ export const EntryForm = ({ categories, projects }) => {
   }
 
   const handleClickPauseTimer = () => {
-    stopTimer({ ...record })
+    stopTimerAndAddCurrentRecord()
   }
 
-  const handleClickStopTimer = () => {
-    stopTimer({ ...record })
+  const handleClickStopTimerAndAddCurrentRecord = () => {
+    stopTimerAndAddCurrentRecord()
     clearInputs()
   }
 
   const handleKeyDowninTitleInput = event => {
     if (event.keyCode === 13) {
       if (timing) {
-        stopTimer({ ...record })
+        stopTimerAndAddCurrentRecord()
       } else {
         setRecord({ ...record, startTime: new Date() })
         startTimer()
@@ -55,7 +55,7 @@ export const EntryForm = ({ categories, projects }) => {
         gap={ 2 }
         sx={{
           p: 2,
-          backgroundColor: '#66778822',
+          backgroundColor: `${ theme.palette.background.paper }`,
           border: 0,
           borderBottom: `2px solid ${ theme.palette.grey[300] }`,
           transition: 'border-color 250ms',
@@ -139,10 +139,10 @@ export const EntryForm = ({ categories, projects }) => {
               )
             }
             <Button
-              onClick={ handleClickStopTimer }
+              onClick={ handleClickStopTimerAndAddCurrentRecord }
               disabled={ !timing }
               color="error"
-            ><StopTimerIcon /></Button>
+            ><StopTimerAndAddCurrentRecordIcon /></Button>
           </ButtonGroup>
         </Stack>
 

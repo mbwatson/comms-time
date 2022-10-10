@@ -1,47 +1,35 @@
 import PropTypes from 'prop-types'
-import { Box, Collapse, Stack, Typography } from '@mui/material'
+import { Box, Collapse, Stack, Typography, useTheme } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 import {
   Settings as ConfigIcon,
-  Alarm as TimerIcon,
+  AccessTime as TimerIcon,
 } from '@mui/icons-material'
 import { useTimer } from '../context'
 import { EntryForm } from '../components/entry-form'
-
-const msToHHMMSS = function(milliseconds) {
-  const seconds = parseInt(milliseconds / 1000, 10)
-  let hh = Math.floor(seconds / 3600)
-  let mm = Math.floor((seconds - (hh * 3600)) / 60)
-  let ss = seconds - (hh * 3600) - (mm * 60)
-  if (hh < 10) { hh = '0' + hh }
-  if (mm < 10) { mm = '0' + mm }
-  if (ss < 10) { ss = '0' + ss }
-  return hh + ':' + mm + ':' + ss
-}
+import { msToHHMMSS } from '../util'
 
 const Menu = () => {
+  const theme = useTheme()
   const { timing, runtime } = useTimer()
 
   return (
-    <Stack
-      direction="row"
-      component="nav"
-      alignItems="center"
-    >
+    <Stack direction="row" component="nav" alignItems="center">
       <NavLink to="/" end>
         <Stack direction="column" justifyContent="center" alignItems="center">
-          <TimerIcon sx={{ color: '#567' }} />
+          <TimerIcon sx={{ color: theme.palette.background.paper }} />
           <Collapse in={ timing }>
             <Typography variant="caption">{ msToHHMMSS(runtime) }</Typography>
           </Collapse>
         </Stack>
       </NavLink>
-      <NavLink to="/config"><ConfigIcon sx={{ color: '#567' }} /></NavLink>
+      <NavLink to="/config"><ConfigIcon sx={{ color: theme.palette.background.paper }} /></NavLink>
     </Stack>
   )
 }
 
 export const Layout = ({ children }) => {
+  const theme = useTheme()
   const { categories, projects, config } = useTimer()
 
   return (
@@ -53,11 +41,12 @@ export const Layout = ({ children }) => {
       alignItems: 'stretch',
       minHeight: '100vh',
       position: 'relative',
+      backgroundColor: theme.palette.background.default,
       '& header': {
         zIndex: 9,
         position: 'sticky', top: 0, left: 0, width: '100%',
         height: '4rem',
-        backgroundColor: '#66778866',
+        backgroundColor: theme.palette.primary.dark,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -75,17 +64,17 @@ export const Layout = ({ children }) => {
             alignItems: 'center',
             padding: '1rem',
             minWidth: '85px',
-            color: '#345',
+            color: theme.palette.background.paper,
             textDecoration: 'none',
             transition: 'background-color 250ms',
             '&.active': {
-              backgroundColor: '#66778822',
+              backgroundColor: 'rgba(0, 0, 0, 0.15)',
               ':hover': {
-                backgroundColor: '#66778822',
+                backgroundColor: 'rgba(0, 0, 0, 0.15)',
               },
             },
             ':hover': {
-              backgroundColor: '#66778811',
+              backgroundColor: 'rgba(0, 0, 0, 0.05)',
             },
           },
         },
@@ -103,8 +92,8 @@ export const Layout = ({ children }) => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#333',
-        color: '#acb',
+        backgroundColor: theme.palette.primary.dark,
+        color: theme.palette.background.paper,
       },
     }}>
       <Box component="header">

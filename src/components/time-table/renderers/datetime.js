@@ -11,5 +11,5 @@ export const DateTimeCell = ({ datetime }) => {
 }
 
 DateTimeCell.propTypes = {
-  datetime: PropTypes.object.isRequired,
+  datetime: PropTypes.string.isRequired,
 }

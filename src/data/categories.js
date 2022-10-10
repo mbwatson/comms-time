@@ -24,4 +24,3 @@ const categories = [
 ].sort((c, d) => c.name.toLowerCase() < d.name.toLowerCase() ? -1 : 1)
 
 module.exports = { categories }
-

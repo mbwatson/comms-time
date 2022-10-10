@@ -3,13 +3,13 @@ import {
   PlayArrow as DuplicateIcon,
   Delete as DeleteIcon,
 } from '@mui/icons-material'
-import { useTheme } from '@mui/material'
+import { Card, useTheme } from '@mui/material'
 import { useTimer } from '../../context'
-import { CategoryCell, DateTimeCell, ProjectCell } from './renderers'
+import { CategoryCell, DateTimeCell, DurationCell, ProjectCell } from './renderers'
 
 export const TimeTable = () => {
   const theme = useTheme()
-  const { categories, projects, records, deleteRecord, duplicateAndStartNewRecord } = useTimer()
+  const { categories, projects, records = [], updateRecord, deleteRecord, duplicateAndStartNewRecord } = useTimer()
   const columns = [
     {
       field: 'project',
@@ -59,6 +59,14 @@ export const TimeTable = () => {
       editable: true,
     },
     {
+      field: 'duration',
+      headerName: 'Duration',
+      type: 'string',
+      width: 100,
+      renderCell: d => <DurationCell startTime={ d.row.startTime } endTime={ d.row.endTime } />,
+      editable: false,
+    },
+    {
       field: '',
       headerName: 'Actions',
       type: 'actions',
@@ -80,13 +88,20 @@ export const TimeTable = () => {
       ],
     },
   ]
+
+  const processRowUpdate = newRow => {
+    updateRecord(newRow.id, newRow)
+    return newRow
+  }
  
   return (
-    <DataGrid
+    <Card
+      component={ DataGrid }
       columns={ columns }
       rows={ records }
-      sx={{ backgroundColor: '#66778811', }}
       disableSelectionOnClick
+      experimentalFeatures={{ newEditingApi: true }}
+      processRowUpdate={ processRowUpdate }
     />
   )
 }
