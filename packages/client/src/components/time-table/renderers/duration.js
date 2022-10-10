@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import { useTimer } from '../../../context'
 import { msToHHMMSS } from '../../../util'
 
 export const DurationCell = ({ startTime, endTime }) => {
