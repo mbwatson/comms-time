@@ -5,12 +5,11 @@ import { v4 as uuidv4 } from 'uuid'
 const TimerContext = createContext({ })
 import { generateRecord, useLocalStorage } from './util'
 import { categories, projects } from './data'
-import { useToasts } from 'react-toast-notifications'
+import { toast } from 'react-toastify'
 
 export const useTimer = () => useContext(TimerContext)
 
 export const TimerProvider = ({ children }) => {
-  const { addToast } = useToasts()
   const [records, setRecords] = useLocalStorage('comms-time', [])
   const [timing, setTiming] = useState(false)
   const [runtime, setRuntime] = useState(0)
@@ -24,11 +23,8 @@ export const TimerProvider = ({ children }) => {
     title: '',
   })
 
-  const notify = (appearance = 'info', message) => {
-    addToast(message, {
-      autoDismiss: true,
-      appearance,
-    })
+  const notify = (type = 'default', message) => {
+    toast(message, { type })
   }
 
   const startTimer = () => {
@@ -112,7 +108,7 @@ export const TimerProvider = ({ children }) => {
     }
     newRecords[recordIndex] = { ...newRecord }
     setRecords([...newRecords])
-    notify('success', 'record updated successfully')
+    notify('success', 'record updated')
   }
 
   useEffect(() => {
