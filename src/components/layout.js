@@ -9,6 +9,8 @@ import {
 import { useTimer } from '../context'
 import { EntryForm } from '../components/entry-form'
 import { msToHHMMSS } from '../util'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const Menu = () => {
   const theme = useTheme()
@@ -46,6 +48,12 @@ export const Layout = ({ children }) => {
       minHeight: '100vh',
       position: 'relative',
       backgroundColor: theme.palette.background.default,
+      '.Toastify__toast-container.Toastify__toast-container--bottom-left': {
+        mx: 2, my: 4,
+        '.Toastify__toast-body': {
+          gap: 2,
+        },        
+      },
       '& header': {
         zIndex: 9,
         position: 'sticky', top: 0, left: 0, width: '100%',
@@ -115,6 +123,16 @@ export const Layout = ({ children }) => {
       <Box component="footer">
         &copy; { new Date().getFullYear() }
       </Box>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={ 5000 }
+        newestOnTop={ false }
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </Box>
   )
 }

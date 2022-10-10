@@ -2,12 +2,14 @@ import { Fragment } from 'react'
 import {
   Box, Button, Card, CardContent, CardHeader, Checkbox, Divider,
   List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack,
-  Typography, useMediaQuery,
+  Typography, useMediaQuery, useTheme,
 } from '@mui/material'
 import { MoreTime as AddIcon } from '@mui/icons-material'
 import { useTimer } from '../context'
+import { FiberManualRecord as DotIcon } from '@mui/icons-material'
 
 export const ConfigView = () => {
+  const theme = useTheme()
   const { categories, projects, config, setConfig, record, addFakeRecord } = useTimer()
   const isSmallScreen = useMediaQuery('(max-width:600px)')
 
@@ -78,7 +80,21 @@ export const ConfigView = () => {
                               inputProps={{ 'aria-labelledby': labelId }}
                             />
                           </ListItemIcon>
-                          <ListItemText id={ labelId } primary={ project.name } />
+                          <ListItemText
+                            disableTypography
+                            id={ labelId }
+                            primary={ <Typography variant="body1">{ project.name }</Typography> }
+                            secondary={
+                              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, 'svg': { transform: 'scale(0.75)' } }}>
+                                <Typography variant="caption">{ project.group }</Typography> <DotIcon sx={{ color: project.color }} fontSize="small" />
+                              </Box>
+                            }
+                            sx={{
+                              display: 'flex',
+                              justifyContent: 'space-between',
+                              '.MuiListItemText-secondary': { color: theme.palette.text.secondary }
+                            }}
+                          />
                         </ListItemButton>
                       </ListItem>
                     )
@@ -112,7 +128,11 @@ export const ConfigView = () => {
                               inputProps={{ 'aria-labelledby': labelId }}
                             />
                           </ListItemIcon>
-                          <ListItemText id={ labelId } primary={ category.name } />
+                          <ListItemText
+                            disableTypography
+                            id={ labelId }
+                            primary={ <Typography variant="body1">{ category.name }</Typography> }
+                          />
                         </ListItemButton>
                       </ListItem>
                     )
