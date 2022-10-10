@@ -5,10 +5,12 @@ import { v4 as uuidv4 } from 'uuid'
 const TimerContext = createContext({ })
 import { generateRecord, useLocalStorage } from './util'
 import { categories, projects } from './data'
+import { useToasts } from 'react-toast-notifications'
 
 export const useTimer = () => useContext(TimerContext)
 
 export const TimerProvider = ({ children }) => {
+  const { addToast } = useToasts()
   const [records, setRecords] = useLocalStorage('comms-time', [])
   const [timing, setTiming] = useState(false)
   const [runtime, setRuntime] = useState(0)
@@ -22,8 +24,26 @@ export const TimerProvider = ({ children }) => {
     title: '',
   })
 
+  const notify = (appearance = 'info', message) => {
+    addToast(message, {
+      autoDismiss: true,
+      appearance,
+    })
+  }
+
   const startTimer = () => {
     setTiming(true)
+    notify('info', 'timer started')
+  }
+
+  const addRecord = newRecord =>{
+    try {
+      setRecords([newRecord, ...records])
+      notify('success', 'record added')
+    } catch (error) {
+      notify('error', 'could not add record')
+      console.error(error.message)
+    }
   }
 
   const stopTimer = () => {
@@ -35,30 +55,35 @@ export const TimerProvider = ({ children }) => {
       startTime: record.startTime,
       endTime: new Date(),
     }
-    setRecords([newRecord, ...records])
+    addRecord(newRecord)
     setTiming(false)
     setRuntime(0)
+    notify('info', 'timer stopped')
   }
 
   const deleteRecord = id => {
     const recordIndex = records.findIndex(r => r.id === id)
-    if (-1 < recordIndex && recordIndex < records.length) {
-      setRecords([...records.slice(0, recordIndex), ...records.slice(recordIndex + 1)])
+    if (recordIndex < 0 || records.length <= recordIndex) {
+      notify('error', 'could not delete record')
+      return
     }
-    setRecords([...records.filter(r => r.id !== id)])
+    setRecords([...records.slice(0, recordIndex), ...records.slice(recordIndex + 1)])
+    notify('success', 'record deleted')
   }
 
   const addFakeRecord = () => {
     if (!categories.length || !projects.length) {
+      notify('error', 'could not add fake record')
       return
     }
     const fakeRecord = generateRecord({ categories, projects })
-    setRecords([fakeRecord, ...records])
+    addRecord(fakeRecord)
   }
 
   const duplicateAndStartNewRecord = id => {
     const recordIndex = records.findIndex(r => r.id === id)
     if (recordIndex < 0 || records.length <= recordIndex) {
+      notify('error', 'could not duplicate record')
       return
     }
     const newRecord = {
@@ -82,10 +107,12 @@ export const TimerProvider = ({ children }) => {
     const newRecords = [...records]
     const recordIndex = newRecords.findIndex(r => r.id === id)
     if (recordIndex < 0 || newRecords.length <= recordIndex) {
+      notify('error', 'could not update record')
       return
     }
     newRecords[recordIndex] = { ...newRecord }
     setRecords([...newRecords])
+    notify('success', 'record updated successfully')
   }
 
   useEffect(() => {
@@ -100,7 +127,8 @@ export const TimerProvider = ({ children }) => {
   return (
     <TimerContext.Provider value={{
       categories, projects,
-      records, deleteRecord, record, setRecord, handleChangeRecord, duplicateAndStartNewRecord, addFakeRecord, updateRecord,
+      record, setRecord, handleChangeRecord,
+      records, deleteRecord, duplicateAndStartNewRecord, updateRecord, addFakeRecord,
       timing, startTimer, stopTimer, runtime,
       config, setConfig,
     }}>

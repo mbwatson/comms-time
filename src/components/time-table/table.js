@@ -90,7 +90,6 @@ export const TimeTable = () => {
   ]
 
   const processRowUpdate = newRow => {
-    const newRecords = [...records]
     updateRecord(newRow.id, newRow)
     return newRow
   }
