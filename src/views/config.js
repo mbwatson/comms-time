@@ -34,7 +34,6 @@ export const ConfigView = () => {
   return (
     <Fragment>
       <Card sx={{
-        backgroundColor: '#66778811',
         '.scrollable-list': {
           flex: 1,
           maxHeight: '33vh',
@@ -47,6 +46,8 @@ export const ConfigView = () => {
           <Typography paragraph>
             Select the projects and categories below
             that you wish to appear as options in the application timer.
+            The project and timer used in a running timer are
+            unavailable for toggling while that timer runs.
           </Typography>
         </CardContent>
       
