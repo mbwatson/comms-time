@@ -2,15 +2,13 @@ import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { createContext, useContext } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import axios from 'axios'
 const TimerContext = createContext({ })
 import { generateRecord, useLocalStorage } from './util'
+import { categories, projects } from './data'
 
 export const useTimer = () => useContext(TimerContext)
 
 export const TimerProvider = ({ children }) => {
-  const [projects, setProjects] = useState([])
-  const [categories, setCategories] = useState([])
   const [records, setRecords] = useLocalStorage('comms-time', [])
   const [timing, setTiming] = useState(false)
   const [runtime, setRuntime] = useState(0)
@@ -23,26 +21,6 @@ export const TimerProvider = ({ children }) => {
     category: '',
     title: '',
   })
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const responses = await Promise.all([
-          axios.get('http://localhost:3030/categories'),
-          axios.get('http://localhost:3030/projects'),
-        ])
-        const [categoriesResponse, projectsResponse] = responses
-        if (!categoriesResponse || !projectsResponse) {
-          throw new Error('no responses')
-        }
-        setProjects([...projectsResponse.data])
-        setCategories([...categoriesResponse.data])
-      } catch (error) {
-        console.error(error.message)
-      }
-    }
-    fetchData()
-  }, [])
 
   const startTimer = () => {
     setTiming(true)
