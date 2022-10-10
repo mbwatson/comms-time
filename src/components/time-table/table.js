@@ -3,7 +3,7 @@ import {
   PlayArrow as DuplicateIcon,
   Delete as DeleteIcon,
 } from '@mui/icons-material'
-import { useTheme } from '@mui/material'
+import { Card, useTheme } from '@mui/material'
 import { useTimer } from '../../context'
 import { CategoryCell, DateTimeCell, DurationCell, ProjectCell } from './renderers'
 
@@ -96,10 +96,10 @@ export const TimeTable = () => {
   }
  
   return (
-    <DataGrid
+    <Card
+      component={ DataGrid }
       columns={ columns }
       rows={ records }
-      sx={{ backgroundColor: '#66778811', }}
       disableSelectionOnClick
       experimentalFeatures={{ newEditingApi: true }}
       processRowUpdate={ processRowUpdate }
