@@ -81,11 +81,12 @@ export const ConfigView = () => {
                             />
                           </ListItemIcon>
                           <ListItemText
+                            disableTypography
                             id={ labelId }
-                            primary={ project.name }
+                            primary={ <Typography variant="body1">{ project.name }</Typography> }
                             secondary={
                               <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, 'svg': { transform: 'scale(0.75)' } }}>
-                                { project.group } <DotIcon sx={{ color: project.color }} fontSize="small" />
+                                <Typography variant="caption">{ project.group }</Typography> <DotIcon sx={{ color: project.color }} fontSize="small" />
                               </Box>
                             }
                             sx={{
@@ -127,7 +128,11 @@ export const ConfigView = () => {
                               inputProps={{ 'aria-labelledby': labelId }}
                             />
                           </ListItemIcon>
-                          <ListItemText id={ labelId } primary={ category.name } />
+                          <ListItemText
+                            disableTypography
+                            id={ labelId }
+                            primary={ <Typography variant="body1">{ category.name }</Typography> }
+                          />
                         </ListItemButton>
                       </ListItem>
                     )
