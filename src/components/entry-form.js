@@ -74,11 +74,11 @@ export const EntryForm = ({ categories, projects }) => {
               onChange={ handleChangeRecord('project') }
             >
               {
-                projects.map(({ id, name }) => (
+                projects.map(({ id, name, group }) => (
                   <MenuItem
                     key={ `project-${ id }` }
                     value={ id }
-                  >{ name }</MenuItem>
+                  >{ `${ name } - ${ group }` }</MenuItem>
                 ))
               }
             </Select>
