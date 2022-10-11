@@ -107,7 +107,7 @@ export const TimeTable = () => {
   function TableFooter() {
     return (
       <GridFooterContainer sx={{ px: 2 }}>
-        <GridToolbarExport />
+        <GridToolbarExport variant="outlined" />
         <GridPagination />
       </GridFooterContainer>
     )
