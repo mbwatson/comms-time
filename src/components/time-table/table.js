@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import {
-  DataGrid, GridActionsCellItem, GridFooterContainer, GridPagination, GridToolbarExport, GridToolbarExportContainer,
+  DataGrid, GridActionsCellItem, GridFooterContainer, GridPagination, GridToolbarExport,
 } from '@mui/x-data-grid'
 import {
   PlayArrow as DuplicateIcon,
