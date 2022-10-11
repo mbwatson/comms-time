@@ -44,16 +44,16 @@ export const groups = [
     color: '#441d4f',
   },
   {
-    id: 'ncds',
-    name: 'National Consortium for Data Science',
-    shortName: 'NCDS',
-    color: '#de2a35',
-  },
-  {
     id: 'irods-consortium',
     name: 'iRODS Consortium',
     shortName: 'iRODS Consortiuum',
     color: '#0E8F8B',
+  },
+  {
+    id: 'ncds',
+    name: 'National Consortium for Data Science',
+    shortName: 'NCDS',
+    color: '#de2a35',
   },
   {
     id: 'radx',
@@ -61,17 +61,11 @@ export const groups = [
     shortName: 'RADx',
     color: '#387982',
   },
-  /* operations */
+  /* miscellaneous bucket */
   {
-    id: 'comms',
-    name: 'Communications',
-    shortName: 'Comms',
+    id: 'general',
+    name: 'General',
+    shortName: 'General',
     color: 'coral',
-  },
-  {
-    id: 'ood',
-    name: 'Office of the Director',
-    shortName: 'OOD',
-    color: '#642',
   },
 ]
