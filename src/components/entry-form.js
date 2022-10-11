@@ -39,7 +39,7 @@ export const EntryForm = ({ categories, projects }) => {
       if (timing) {
         stopTimerAndAddCurrentRecord()
       } else {
-        setRecord({ ...record, startTime: new Date() })
+        setRecord({ ...record, startTime: new Date().toLocaleString() })
         startTimer()
       }
     }
