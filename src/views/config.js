@@ -151,10 +151,18 @@ export const ConfigView = () => {
       </Card>
 
       <Card>
-        <CardHeader title="Generate Records" />
+        <CardHeader title="Generate Random Time Records" />
         <CardContent>
-          This functionality was built to help with testing this
-          interface, but it&apos;s fun to play with, so it stays in!
+          <Typography paragraph>
+            Each record generatd will be generated with random
+            projects and categories. However, as ofnow, they will all
+            have start times between 20 and 30 minutes ago and end
+            times between 20 and 10 minutes ago.
+          </Typography>
+          <Typography paragraph>
+            This functionality was built to help with testing this
+            interface, but it&apos;s fun to play with, so it stays in!
+          </Typography>
         </CardContent>
 
         <Divider />
@@ -169,8 +177,7 @@ export const ConfigView = () => {
             variant="outlined"
             onClick={ addFakeRecord }
             startIcon={ <AddIcon /> }
-            size="large"
-          >Generate</Button>
+          >Generate one record</Button>
         </CardContent>
       </Card>
     </Fragment>
