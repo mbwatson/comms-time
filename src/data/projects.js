@@ -48,6 +48,11 @@ export const projects = [
   { id: 'bdc3',                                       name: 'BDC3',                                                  groupId: 'bdc3' },
   { id: 'bdc3-fellows',                               name: 'BDC3: Fellows Program',                                 groupId: 'bdc3' },
   { id: 'bdc3-cici',                                  name: 'BDC3: CICI Program',                                    groupId: 'bdc3' },
+  { id: 'ncds',                                       name: 'NCDS',                                                  groupId: 'ncds' },
+  { id: 'heal',                                       name: 'HEAL',                                                  groupId: 'heal' },
+  { id: 'irods',                                      name: 'iRODS',                                                 groupId: 'irods-consortium' },
+  { id: 'radx',                                       name: 'RADx',                                                  groupId: 'radx' },
+  { id: 'misc',                                       name: 'Miscellaneous',                                         groupId: 'general' },
 ].map(project => {
   const g = groups.find(g => g.id === project.groupId)
   return {

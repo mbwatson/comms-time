@@ -6,6 +6,12 @@ export const DurationCell = ({ startTime, endTime }) => {
 }
 
 DurationCell.propTypes = {
-  startTime: PropTypes.string.isRequired,
-  endTime: PropTypes.string.isRequired,
+  startTime: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+  ]).isRequired,
+  endTime: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+  ]).isRequired,
 }
