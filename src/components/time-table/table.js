@@ -1,5 +1,7 @@
 import { useMemo } from 'react'
-import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid'
+import {
+  DataGrid, GridActionsCellItem, GridFooterContainer, GridPagination, GridToolbarExport, GridToolbarExportContainer,
+} from '@mui/x-data-grid'
 import {
   PlayArrow as DuplicateIcon,
   Delete as DeleteIcon,
@@ -101,6 +103,15 @@ export const TimeTable = () => {
     updateRecord(newRow.id, newRow)
     return newRow
   }
+
+  function TableFooter() {
+    return (
+      <GridFooterContainer sx={{ px: 2 }}>
+        <GridToolbarExport />
+        <GridPagination />
+      </GridFooterContainer>
+    )
+  }
  
   return (
     <Card
@@ -111,6 +122,9 @@ export const TimeTable = () => {
       experimentalFeatures={{ newEditingApi: true }}
       processRowUpdate={ processRowUpdate }
       editMode="row"
+      components={{
+        Footer: TableFooter,
+      }}
     />
   )
 }
