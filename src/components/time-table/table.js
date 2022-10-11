@@ -102,6 +102,7 @@ export const TimeTable = () => {
       disableSelectionOnClick
       experimentalFeatures={{ newEditingApi: true }}
       processRowUpdate={ processRowUpdate }
+      editMode="row"
     />
   )
 }
