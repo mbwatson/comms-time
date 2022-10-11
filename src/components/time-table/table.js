@@ -95,7 +95,7 @@ export const TimeTable = () => {
         />,
       ],
     },
-  ], [config.hiddenCategories, config.hiddenProjects])
+  ], [config.hiddenCategories, config.hiddenProjects, records])
 
   const processRowUpdate = newRow => {
     updateRecord(newRow.id, newRow)
