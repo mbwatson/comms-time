@@ -14,7 +14,7 @@ import { FiberManualRecord as DotIcon } from '@mui/icons-material'
 
 export const EntryForm = ({ categories, projects }) => {
   const theme = useTheme()
-  const { startTimer, stopTimerAndAddCurrentRecord, timing, record, setRecord, handleChangeRecord, groups } = useTimer()
+  const { config, startTimer, stopTimerAndAddCurrentRecord, timing, record, setRecord, handleChangeRecord, groups } = useTimer()
 
   const clearInputs = useCallback(() => {
     setRecord({ project: '', category: '', title: '', })
@@ -65,7 +65,10 @@ export const EntryForm = ({ categories, projects }) => {
             { group.name }
           </ListSubheader>,
           ...projects
-            .filter(proj => proj.groupId === group.id)
+            .filter(proj => {
+              return proj.groupId === group.id
+                && !config.hiddenProjects.has(proj.id)
+            })
             .map(({ id, name }) => (
               <MenuItem
                 key={ `project-option-${ id }` }
@@ -74,7 +77,7 @@ export const EntryForm = ({ categories, projects }) => {
             ))
         ]
       }, [])
-  }, [])
+  }, [config.hiddenProjects])
 
   return (
     <Box>
