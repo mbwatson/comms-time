@@ -30,8 +30,6 @@ export const ConfigView = () => {
     } else {
       newHiddenProjects.add(projectId)
     }
-    console.log(projectId)
-    console.log({ ...config, hiddenProjects: newHiddenProjects })
     setConfig({ ...config, hiddenProjects: newHiddenProjects })
   }
 
@@ -76,7 +74,7 @@ export const ConfigView = () => {
         )
       })
     ]
-  }, [config.hiddenCategories, config.hiddenProjects])
+  }, [projects, config.hiddenProjects, record.project])
 
   return (
     <Fragment>
@@ -154,15 +152,25 @@ export const ConfigView = () => {
 
       <Card>
         <CardHeader title="Generate Records" />
+        <CardContent>
+          This functionality was built to help with testing this
+          interface, but it&apos;s fun to play with, so it stays in!
+        </CardContent>
 
         <Divider />
         
-        <CardContent>
+        <CardContent sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          py: 8,
+        }}>
           <Button
             variant="outlined"
             onClick={ addFakeRecord }
             startIcon={ <AddIcon /> }
-          >Add Fake Record</Button>
+            size="large"
+          >Generate</Button>
         </CardContent>
       </Card>
     </Fragment>

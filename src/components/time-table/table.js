@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid'
 import {
   PlayArrow as DuplicateIcon,
@@ -9,16 +10,21 @@ import { CategoryCell, DateTimeCell, DurationCell, ProjectCell } from './rendere
 
 export const TimeTable = () => {
   const theme = useTheme()
-  const { categories, projects, records = [], updateRecord, deleteRecord, duplicateAndStartNewRecord } = useTimer()
-  const columns = [
+  const {
+    config, categories, projects, records = [],
+    updateRecord, deleteRecord, duplicateAndStartNewRecord,
+  } = useTimer()
+  const columns = useMemo(() => [
     {
       field: 'project',
       headerName: 'Project',
       type: 'singleSelect',
-      valueOptions: projects.map(proj => ({
-        value: proj.id,
-        label: proj.name,
-      })),
+      valueOptions: projects
+        .filter(proj => !config.hiddenProjects.has(proj.id))
+        .map(proj => ({
+          value: proj.id,
+          label: proj.name,
+        })),
       width: 200,
       editable: true,
       renderCell: d => <ProjectCell projectId={ d.row.project } />,
@@ -28,12 +34,14 @@ export const TimeTable = () => {
       headerName: 'Category',
       width: 150,
       type: 'singleSelect',
-      valueOptions: categories.map(cat => ({
-        value: cat.id,
-        label: cat.name,
-      })),
+      valueOptions: categories
+        .filter(cat => !config.hiddenCategories.has(cat.id))
+        .map(cat => ({
+          value: cat.id,
+          label: cat.name,
+        })),
       editable: true,
-      renderCell: d => <CategoryCell categoryId={ d.row.category } />
+      renderCell: d => <CategoryCell categoryId={ d.row.category } />,
     },
     {
       field: 'title',
@@ -87,7 +95,7 @@ export const TimeTable = () => {
         />,
       ],
     },
-  ]
+  ], [config.hiddenCategories, config.hiddenProjects])
 
   const processRowUpdate = newRow => {
     updateRecord(newRow.id, newRow)
