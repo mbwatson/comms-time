@@ -154,10 +154,9 @@ export const ConfigView = () => {
         <CardHeader title="Generate Random Time Records" />
         <CardContent>
           <Typography paragraph>
-            Each record generatd will be generated with random
-            projects and categories. However, as ofnow, they will all
-            have start times between 20 and 30 minutes ago and end
-            times between 20 and 10 minutes ago.
+            Each record will be generated with a random project and category.
+            However, as of now, start times will be between 20 and 30 minutes
+            ago, and end times will be between 20 and 10 minutes ago.
           </Typography>
           <Typography paragraph>
             This functionality was built to help with testing this
