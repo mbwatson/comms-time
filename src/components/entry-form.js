@@ -90,7 +90,7 @@ export const EntryForm = ({ categories, projects }) => {
         gap={ 2 }
         sx={{
           p: 2,
-          backgroundColor: `${ theme.palette.background.paper }`,
+          backgroundColor: theme.palette.background.paper,
           border: 0,
           borderBottom: `2px solid ${ theme.palette.grey[300] }`,
           transition: 'border-color 250ms',
