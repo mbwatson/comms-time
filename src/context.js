@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { createContext, useContext } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-const TimerContext = createContext({ })
 import { generateRecord, useLocalStorage } from './util'
 import { categories, groups, projects } from './data'
 import { toast } from 'react-toastify'
 
 export const useTimer = () => useContext(TimerContext)
+
+const TimerContext = createContext({ })
 
 export const TimerProvider = ({ children }) => {
   const [records, setRecords] = useLocalStorage('comms-time', [])
