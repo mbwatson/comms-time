@@ -86,7 +86,7 @@ export const TimeTable = () => {
           icon={ <DeleteIcon /> }
           label="Delete Record"
           onClick={ () => deleteRecord(id) }
-          sx={{ ':hover': { color: theme.palette.error.dark } }}
+          sx={{ ':hover': { color: theme.palette.warning.main } }}
         />,
         <GridActionsCellItem
           key="duplicate-record-action"

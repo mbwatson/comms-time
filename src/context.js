@@ -68,6 +68,11 @@ export const TimerProvider = ({ children }) => {
     notify('success', 'record deleted')
   }
 
+  const clearRecords = () => {
+    setRecords([])
+    notify('success', 'records deleted')
+  }
+
   const addFakeRecord = () => {
     if (!categories.length || !projects.length) {
       notify('error', 'could not add fake record')
@@ -125,7 +130,7 @@ export const TimerProvider = ({ children }) => {
     <TimerContext.Provider value={{
       categories, groups, projects,
       record, setRecord, handleChangeRecord,
-      records, deleteRecord, duplicateAndStartNewRecord, updateRecord, addFakeRecord,
+      records, deleteRecord, duplicateAndStartNewRecord, updateRecord, addFakeRecord, clearRecords,
       timing, startTimer, stopTimerAndAddCurrentRecord, runtime,
       config, setConfig,
     }}>

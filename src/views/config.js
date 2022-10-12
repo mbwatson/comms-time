@@ -4,13 +4,16 @@ import {
   List, ListItem, ListItemButton, ListItemIcon, ListItemText, Stack,
   Typography, useMediaQuery, useTheme,
 } from '@mui/material'
-import { MoreTime as AddIcon } from '@mui/icons-material'
+import {
+  DeleteForever as ClearAllIcon,
+  MoreTime as AddIcon,
+} from '@mui/icons-material'
 import { useTimer } from '../context'
 import { FiberManualRecord as DotIcon } from '@mui/icons-material'
 
 export const ConfigView = () => {
   const theme = useTheme()
-  const { categories, projects, config, setConfig, record, addFakeRecord } = useTimer()
+  const { categories, projects, config, setConfig, record, addFakeRecord, clearRecords } = useTimer()
   const isSmallScreen = useMediaQuery('(max-width:600px)')
 
   const handleClickCategoryCheckbox = categoryId => () => {
@@ -151,34 +154,67 @@ export const ConfigView = () => {
       </Card>
 
       <Card>
-        <CardHeader title="Generate Random Time Records" />
-        <CardContent>
-          <Typography paragraph>
-            Each record will be generated with a random project and category.
-            However, as of now, start times will be between 20 and 30 minutes
-            ago, and end times will be between 20 and 10 minutes ago.
-          </Typography>
-          <Typography paragraph>
-            This functionality was built to help with testing this
-            interface, but it&apos;s fun to play with, so it stays in!
-          </Typography>
-        </CardContent>
+        <CardHeader title="Danger Zone" />
 
         <Divider />
-        
-        <CardContent sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          py: 8,
-        }}>
-          <Button
-            variant="outlined"
-            onClick={ addFakeRecord }
-            startIcon={ <AddIcon /> }
-          >Generate one record</Button>
+
+        <CardContent>
+          <Stack
+            direction={{ sx: 'column', sm: 'row' }}
+            gap={ 2 }
+            divider={ isSmallScreen ? <Divider /> : <Divider orientation="vertical" flexItem /> }
+          >
+            <Stack
+              direction="column"
+              gap={ 4 }
+              sx={{ flex: 1, '.MuiBox-root': { flex: 1 } }}>
+              <Box>
+                <Typography variant="h6">Generate Time Records</Typography>
+                <Typography paragraph>
+                  Each record will be generated with a random project and category.
+                  However, as of now, start times will be between 30 and 10 minutes
+                  ago, and end times will be between 20 and 20 minutes ago.
+                </Typography>
+                <Typography paragraph>
+                  This functionality was built to help with testing this
+                  interface, but it&apos;s fun to play with, so it stays in!
+                </Typography>
+              </Box>
+
+              <Stack justifyContent="center" alignItems="center">
+                <Button
+                  variant="outlined"
+                  onClick={ addFakeRecord }
+                  startIcon={ <AddIcon /> }
+                >Generate one record</Button>
+              </Stack>
+            </Stack>
+            <Stack
+              direction="column"
+              gap={ 4 }
+              sx={{ flex: 1, '.MuiBox-root': { flex: 1 } }}>
+              <Box>
+                <Typography variant="h6">Delete Records</Typography>
+
+                <Typography paragraph>
+                  This will clear all time records. Proceed with caution. <em>This cannot be undone</em>.
+                </Typography>
+              </Box>
+
+              <Stack justifyContent="center" alignItems="center">
+                <Button
+                  variant="outlined"
+                  onClick={ clearRecords }
+                  color="warning"
+                  startIcon={ <ClearAllIcon /> }
+                >Delete all records</Button>
+              </Stack>
+            </Stack>
+          </Stack>
         </CardContent>
       </Card>
     </Fragment>
   )
 }
+
+
