@@ -93,7 +93,7 @@ export const TimeTable = () => {
           icon={ <DuplicateIcon /> }
           label="Duplicate Record"
           onClick={ () => duplicateAndStartNewRecord(id) }
-          sx={{ ':hover': { color: theme.palette.primary.dark } }}
+          sx={{ ':hover': { color: theme.palette.primary.light } }}
         />,
       ],
     },
