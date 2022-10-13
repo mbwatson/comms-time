@@ -49,6 +49,7 @@ export const projects = [
   { id: 'bdc3-fellows',                               name: 'BDC3: Fellows Program',                                 groupId: 'bdc3' },
   { id: 'bdc3-cici',                                  name: 'BDC3: CICI Program',                                    groupId: 'bdc3' },
   { id: 'ncds',                                       name: 'NCDS',                                                  groupId: 'ncds' },
+  { id: 'data-matters',                               name: 'Data Matters',                                          groupId: 'ncds' },
   { id: 'heal',                                       name: 'HEAL',                                                  groupId: 'heal' },
   { id: 'irods',                                      name: 'iRODS',                                                 groupId: 'irods-consortium' },
   { id: 'radx',                                       name: 'RADx',                                                  groupId: 'radx' },
