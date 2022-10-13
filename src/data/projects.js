@@ -54,6 +54,7 @@ export const projects = [
   { id: 'irods',                                      name: 'iRODS',                                                 groupId: 'irods-consortium' },
   { id: 'radx',                                       name: 'RADx',                                                  groupId: 'radx' },
   { id: 'misc',                                       name: 'Miscellaneous',                                         groupId: 'general' },
+  { id: 'pd',                                         name: 'Professional Development',                              groupId: 'general' },
 ].map(project => {
   const g = groups.find(g => g.id === project.groupId)
   return {
