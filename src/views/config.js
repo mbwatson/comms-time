@@ -169,8 +169,8 @@ export const ConfigView = () => {
                 <Typography variant="h6">Generate Time Records</Typography>
                 <Typography paragraph>
                   Each record will be generated with a random project and category.
-                  However, as of now, start times will be between 30 and 10 minutes
-                  ago, and end times will be between 20 and 20 minutes ago.
+                  However, as of now, start times will be between 30 and 20 minutes
+                  ago, and end times will be between 20 and 10 minutes ago.
                   All of this is to say that the generated records will probably overlap.
                 </Typography>
                 <Typography paragraph>
