@@ -8,7 +8,7 @@ import {
   GitHub as GitHubIcon,
 } from '@mui/icons-material'
 import { useTimer } from '../context'
-import { EntryForm } from '../components/entry-form'
+import { EntryForm } from '../components/timer'
 import { msToHHMMSS } from '../util'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'

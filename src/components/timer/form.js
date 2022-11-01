@@ -9,7 +9,7 @@ import {
   Stop as StopTimerAndAddCurrentRecordIcon,
   Pause as PauseTimerIcon,
 } from '@mui/icons-material'
-import { useTimer } from '../context'
+import { useTimer } from '../../context'
 import { FiberManualRecord as DotIcon } from '@mui/icons-material'
 
 export const EntryForm = ({ categories, projects }) => {
