@@ -92,10 +92,7 @@ export const ConfigView = () => {
         
         <CardContent>
           <Typography paragraph>
-            Select the projects and categories below
-            that you wish to appear as options in the application timer.
-            If a timer is currently running, then the selected project and
-            category are unavailable to toggle here.
+            Projects and categories selected here will appear as options in the application timer.
           </Typography>
         </CardContent>
       
