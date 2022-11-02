@@ -23,4 +23,4 @@ const categories = [
   { id: 'writing',              name: 'Writing' },
 ].sort((c, d) => c.name.toLowerCase() < d.name.toLowerCase() ? -1 : 1)
 
-module.exports = { categories }
+module.exports = categories

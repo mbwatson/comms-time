@@ -1,4 +1,4 @@
-export const groups = [
+const groups = [
   /* groups */
   { id: 'nrig',               name: 'Network Research & Infrastructure',      shortName: 'NRIG',                   color: '#e39862', },
   { id: 'eds',                name: 'Earth Data Science',                     shortName: 'EDS',                    color: '#9edf7a', },
@@ -14,3 +14,5 @@ export const groups = [
   /* miscellaneous bucket */
   { id: 'general',            name: 'General',                                shortName: 'General',                color: 'coral', },
 ]
+
+module.exports = groups
