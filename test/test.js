@@ -1,6 +1,8 @@
 const assert = require('assert')
 const { categories, groups, projects } = require('../src/data')
 
+/* Projects */
+
 describe('Projects', () => {
   it('should be non-empty', () => {
     assert.notEqual(projects.length, 0)
@@ -12,6 +14,8 @@ describe('Projects', () => {
   })
 })
 
+/* Groups */
+
 describe('Groups', () => {
   it('should be non-empty', () => {
     assert.notEqual(groups.length, 0)
@@ -22,6 +26,8 @@ describe('Groups', () => {
     assert.equal(groups.length, ids.size)
   })
 })
+
+/* Categories */
 
 describe('Categories', () => {
   it('should be non-empty', () => {
