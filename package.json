@@ -27,6 +27,7 @@
     "gh-pages": "^4.0.0",
     "html-webpack-plugin": "^5.3.2",
     "mini-css-extract-plugin": "^2.6.0",
+    "mocha": "^10.1.0",
     "postcss": "^8.4.14",
     "postcss-loader": "^7.0.0",
     "postcss-preset-env": "^7.7.1",
