@@ -1,6 +1,6 @@
-import { groups } from './groups'
+const groups = require('./groups')
 
-export const projects = [
+const projects = [
   { id: 'aerpaw',                                     name: 'AERPAW',                                                groupId: 'nrig' },
   { id: 'atlanticwave-sdx',                           name: 'AtlanticWave-SDX',                                      groupId: 'nrig' },
   { id: 'chameleon-cloud',                            name: 'Chameleon Cloud',                                       groupId: 'nrig' },
@@ -62,3 +62,5 @@ export const projects = [
     group: g,
   }
 })
+
+module.exports = projects
