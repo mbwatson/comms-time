@@ -10,7 +10,7 @@ const container = document.getElementById('root')
 const root = createRoot(container)
 
 root.render(
-  <BrowserRouter basename={ process.env.NODE_ENV === 'production' ? '/comms-time' : '' }>
+  <BrowserRouter>
     <TimerProvider>
       <ThemeProvider theme={ theme }>
         <App />
