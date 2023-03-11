@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Box, Collapse, Stack, Typography, useTheme } from '@mui/material'
+import { Box, Collapse, IconButton, Stack, Typography, useTheme } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 import {
   AccessTime as TimerIcon,
@@ -31,7 +31,6 @@ const Menu = () => {
       </NavLink>
       <NavLink to="/reports"><ReportsIcon /></NavLink>
       <NavLink to="/config"><ConfigIcon /></NavLink>
-      <a href="https://github.com/mbwatson/comms-time" target="_blank" rel="noopener noreferrer"><GitHubIcon /></a>
     </Stack>
   )
 }
@@ -104,7 +103,8 @@ export const Layout = ({ children }) => {
       '& footer': {
         height: '2rem',
         display: 'flex',
-        justifyContent: 'center',
+        px: 2, py: 3,
+        justifyContent: 'space-between',
         alignItems: 'center',
         backgroundColor: theme.palette.primary.dark,
         color: theme.palette.background.paper,
@@ -123,7 +123,12 @@ export const Layout = ({ children }) => {
         gap={ 4 }
       >{ children }</Stack>
       <Box component="footer">
-        &copy; { new Date().getFullYear() }
+        <span>&copy; { new Date().getFullYear() }</span>
+        <IconButton
+          href="https://github.com/mbwatson/comms-time"
+          target="_blank"
+          rel="noopener noreferrer"
+        ><GitHubIcon fontSize="small" color="primary" /></IconButton>
       </Box>
       <ToastContainer
         position="bottom-left"
